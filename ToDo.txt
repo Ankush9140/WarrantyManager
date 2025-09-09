@@ -1,0 +1,104 @@
+1. Backend (FastAPI + MongoDB + File Storage)
+
+Model (Pydantic Class)
+Warranty fields:
+
+Product ID (GUID, auto-generated)
+
+Product Name
+
+Customer Name
+
+Government ID
+
+Purchase Date
+
+Warranty Period (months)
+
+Status (Active / Expired / Claimed)
+
+Contact Information
+
+Document Upload (PDF/Images stored in folder)
+
+Database (MongoDB Atlas)
+Collection: warranty
+Fields: _id, product_id, product_name, customer_name, govt_id, purchase_date, warranty_period, status, contact_info, document_path
+
+Storage
+Documents (PDF, scans) are stored locally in a folder WarrantyDocuments/. Each product has its own subfolder.
+
+Database Access Layer (DAL)
+Functions to:
+
+Create Warranty
+
+Update Warranty
+
+Read Warranty (single/all)
+
+Delete Warranty
+
+Bulk Insert
+
+Business Logic Layer (BLL)
+
+Add warranty (generate Product ID, save file in subfolder)
+
+Update warranty (replace document if uploaded again)
+
+Get all warranties (with file paths)
+
+Get warranty by Product ID
+
+Delete warranty (remove record + documents)
+
+Bulk Upload (CSV/Excel parsing & insert)
+
+FastAPI Endpoints
+
+POST /create_warranty
+
+PUT /update_warranty/{product_id}
+
+GET /get_all_warranty
+
+GET /get_warranty/{product_id}
+
+DELETE /delete_warranty/{product_id}
+
+POST /bulk_upload
+
+Authentication
+
+Secure endpoints with JWT tokens using Auth0
+
+Logging
+
+Use loguru to log all API activities
+
+
+
+
+
+2. Frontend (Angular)
+
+Warranty Dashboard
+
+List warranties (search, sort, filter by status)
+
+Download documents (direct link from backend)
+
+Delete warranties (with confirmation)
+
+Add/Update Warranty
+
+Form with validation (all required fields)
+
+File upload (PDF/Image)
+
+Bulk Upload
+
+Upload CSV/Excel with multiple warranties
+
+Show validation errors if bad data

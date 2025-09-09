@@ -1,0 +1,24 @@
+from fastapi import FastAPI
+from controller.warranty_controller import router as warranty_router
+from controller.auth_controller import router as auth_router
+from dotenv import load_dotenv
+
+load_dotenv()
+
+app = FastAPI(title="Warranty Management System")
+
+app.include_router(warranty_router, prefix="/v1/api/warranty", tags=["Warranty"])
+app.include_router(auth_router, prefix="/v1/api", tags=["Authnetication"])
+
+@app.get("/")
+def home():
+    return {"message": "Warranty Management API is running!"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "main:app",
+        host="127.0.0.1", 
+        port=8000,         
+        reload=True       
+    )
