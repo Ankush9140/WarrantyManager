@@ -1,7 +1,7 @@
 <div class="background"></div>
 <div class="InnerContainer">
   <div class="top">
-    <p style="padding: 0; margin: 0; font-size: 16px; font-weight: 600;margin-top: 15px;">WELCOME TO THE</p>
+    <p style="padding: 0; margin: 0; font-size: 16px; font-weight: 600;margin-top: 0;">WELCOME TO THE</p>
     <div class="top1">
       <p style="font-size: 37px; font-weight: 900; padding: 4px;margin: 2px;margin-left: 0;margin-top: 15px;">WARRANTY
       </p>
@@ -20,23 +20,23 @@
     <p style="font-size: 14px;font-weight: 600; margin-bottom: 8px;">ACCOUNT SIGN UP</p>
     <form [formGroup]="HelpForm" (ngSubmit)="onSubmit()">
       <p>Username</p>
-      <input type="text" formControlName="username" placeholder="Username" />
+      <input type="text" formControlName="username" placeholder="Username" style="margin-bottom: 5px;"/>
       <div *ngIf="HelpForm.get('username')?.invalid && HelpForm.get('username')?.touched" class="error">
-        Username should be at least 5 characters
+        <p style="font-size: 9px; font-weight: 400; margin-top: 1px; color: red;">Username should be at least 5 characters</p>
       </div>
 
       <p>Password</p>
-      <input type="password" formControlName="password" placeholder="Password" />
+      <input type="password" formControlName="password" placeholder="Password" style="margin-bottom: 5px;"/>
       <div *ngIf="HelpForm.get('password')?.invalid && HelpForm.get('password')?.touched" class="error">
-        Password should be at least 8 characters
+        <p style="font-size: 9px; font-weight: 400; margin-top: 1px; color: red;">Password should be at least 8 characters</p>
       </div>
 
       <p>Confirm Password</p>
-      <input type="password" formControlName="confirmpassword" placeholder="Confirm Password" />
+      <input type="password" formControlName="confirmpassword" placeholder="Confirm Password" style="margin-bottom: 5px;"/>
       <div
         *ngIf="HelpForm.get('password')?.value !== HelpForm.get('confirmpassword')?.value && HelpForm.get('confirmpassword')?.touched"
         class="error">
-        Passwords do not match!
+        <p style="font-size: 9px; font-weight: 400; margin-top: 1px; color: red;">Passwords do not match!</p>
       </div>
 
       <div class="bottom1">

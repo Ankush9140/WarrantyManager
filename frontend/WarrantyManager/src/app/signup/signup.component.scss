@@ -4,7 +4,7 @@
     left: 0;
     background: url('/back.jpg') no-repeat center center fixed;
     background-size: cover;
-    filter: grayscale(65%) blur(5px);
+    filter: grayscale(60%) blur(5px);
     width: 100vw;
     height: 100vh;
     z-index: -1;
@@ -27,7 +27,7 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.288);
 }
 .top{
-    margin: 14px;
+    margin: 10px;
     width: 95%;
 }
 .bottom{
@@ -49,6 +49,7 @@ input{
     display: block;
 }
 .bottom1{
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
