@@ -1,0 +1,37 @@
+<div class="background"></div>
+<div class="InnerContainer">
+  <div class="top">
+    <p style="padding: 0; margin: 0; font-size: 16px; font-weight: 600; margin-top: 20px;">WELCOME TO THE</p>
+    <div class="top1">
+      <p style="font-size: 37px; font-weight: 900; padding: 0; margin: 3px; margin-top: 18px;">WARRANTY</p>
+      <p style="font-size: 37px; font-weight: 900; padding: 0; margin: 3px; color: #4050B5; margin-top: 13px;">MANAGEMENT SYSTEM</p>
+    </div>
+    <div class="top2">
+      <p style="font-size: 14px; color: #212121B2; margin-top: 18px;">
+        Register products, track warranties, all in one place. Log in to stay on top of every warranty with ease.
+      </p>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <p style="font-size: 14px; font-weight: 600; margin-bottom: 15px;">ACCOUNT SIGN IN</p>
+    <form [formGroup]="HelpForm" (ngSubmit)="onSubmit()">
+      
+      <p style="font-size: 14px; font-weight: 500; margin-bottom: 5px;">Username</p>
+      <input id="username" type="text" formControlName="username" placeholder="Username"/>
+
+      <p style="font-size: 14px; font-weight: 500; margin-bottom: 5px; margin-top: 15px;">Password</p>
+      <input id="password" type="password" formControlName="password" placeholder="Password"/>
+
+      <div class="bottom1" style="margin-top: 20px; margin-bottom: 30px;">
+        <div style="display: flex;">
+          <div>Don't have an account?</div>
+          <div class="sign" routerLink="/signup" style="cursor: pointer; margin-left: 5px;">Sign Up</div>
+        </div>
+        <button type="submit" [disabled]="HelpForm.invalid" [ngClass]="{'btninv': HelpForm.invalid}">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
