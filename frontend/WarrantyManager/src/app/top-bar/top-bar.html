@@ -1,0 +1,22 @@
+<div class="maincontainer">
+    <div class="search">
+        <p style="font-size: 45px; font-weight: 550; padding: 0; margin: 3px; color: #4050B5; margin-top: 13px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">WARRANTY MANAGEMENT SYSTEM</p>
+    </div>
+    <div>
+        <div class="avatar-circle" (click)="toggleLogout()">{{username[0]}}</div>
+        <div [hidden]="!logout" class="logout">
+            <div style="justify-content: center;">
+                <p style="font-size: 14px; font-weight: 500; color: rgb(61, 60, 60);">{{username}}</p>
+            </div>
+            <hr />
+            <div class="logout11" style="cursor: pointer;" (click)="logoutt()">
+                <div class="logout1" style="margin-top: 10px;">
+                    <img src="/logout.svg" style="width: 30px; height: 30px; padding: 0; margin: 0;">
+                </div>
+                <div style="margin-left: 3px;">
+                    <p style="font-size: 16px; font-weight: 500;">Log Out</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

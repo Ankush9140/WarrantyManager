@@ -1,1 +1,34 @@
-<p>dashboard works!</p>
+<div>
+    <app-topbar></app-topbar>
+    <div class="top">
+        <div class="charts"><canvasjs-chart [options]="chartOptions3"
+                [styles]="{ width: '25vw', height: '250px' }"></canvasjs-chart></div>
+        <div class="charts"><canvasjs-chart [options]="chartOptions"
+                [styles]="{ width: '40vw', height: '250px' }"></canvasjs-chart></div>
+        <div class="charts"><canvasjs-chart [options]="chartOptions2"
+                [styles]="{ width: '25vw', height: '250px' }"></canvasjs-chart></div>
+    </div>
+    <div class="Bottom">
+        <div class="tableHeader">
+            <p style="font-size: 24px;font-weight: 500;">Warranties</p>
+            <div style="color: #4050B5;font-weight: 500;font-size: 18px; cursor: pointer;" (click)="goToTables()">
+                <u>View All</u></div>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead class="headers">
+                    <tr class="head1">
+                        <th *ngFor="let item of heading" style="font-size: 16px;">{{item}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bodies" *ngFor="let item of data">
+                        <ng-container *ngFor="let key of keys">
+                            <td style="overflow: hidden; font-size: 14px;">{{ item[key] }}</td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

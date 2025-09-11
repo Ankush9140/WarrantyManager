@@ -9,16 +9,16 @@ load_dotenv()
 app = FastAPI(title="Warranty Management System")
 
 origins = [
-    "http://localhost:4200",   # Angular dev server
-    "http://127.0.0.1:4200"    # sometimes Angular runs here
+    "http://localhost:4200",  
+    "http://127.0.0.1:4200"   
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,          # or ["*"] to allow all
+    allow_origins=origins,        
     allow_credentials=True,
-    allow_methods=["*"],            # allow all HTTP methods
-    allow_headers=["*"],            # allow all headers
+    allow_methods=["*"],       
+    allow_headers=["*"],      
 )
 
 app.include_router(warranty_router, prefix="/v1/api/warranty", tags=["Warranty"])

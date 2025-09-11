@@ -7,9 +7,13 @@ import io
 from datetime import datetime
 from controller.auth_controller import get_current_user
 from fastapi import Depends
+from repository.warranty_repo import WarrantyRepo
+from typing import Dict
+from collections import Counter
 
 router = APIRouter()
 warrantyService = WarrantyService()
+repo = WarrantyRepo()
 
 @router.post("/create_warranty")
 async def create_warranty(
@@ -96,3 +100,45 @@ async def download_document(file_id: str,current_user: str = Depends(get_current
                                  headers={"Content-Disposition": f"attachment; filename={filename}"})
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+
+@router.get("/documentStatus")
+async def warranties_documents(current_user: str = Depends(get_current_user)) -> Dict[str, int]:
+    warranties = repo.get_all_warranties()
+    with_doc = sum(1 for w in warranties if w.get("document_id"))
+    without_doc = len(warranties) - with_doc
+    return {"with_document": with_doc, "without_document": without_doc}
+
+
+@router.get("/warrantyStatus")
+async def warranties_status(current_user: str = Depends(get_current_user)) -> Dict[str, int]:
+    warranties = repo.get_all_warranties()
+    counts = Counter([w.get("status", "Unknown") for w in warranties])
+    return {
+        "Active": counts.get("Active", 0),
+        "Expired": counts.get("Expired", 0),
+        "Claimed": counts.get("Claimed", 0),
+    }
+
+@router.get("/monthlyStatus")
+async def warranties_monthly(current_user: str = Depends(get_current_user)):
+    warranties = repo.get_all_warranties()
+    monthly_counts = {m: 0 for m in range(1, 7)}
+
+    for w in warranties:
+        if "purchase_date" in w:
+            purchase_date = w["purchase_date"]
+            if isinstance(purchase_date, str):
+                purchase_date = datetime.fromisoformat(purchase_date)
+            month = purchase_date.month
+            if 1 <= month <= 6:
+                monthly_counts[month] += 1
+
+    return {
+        "Jan": monthly_counts[1],
+        "Feb": monthly_counts[2],
+        "Mar": monthly_counts[3],
+        "Apr": monthly_counts[4],
+        "May": monthly_counts[5],
+        "Jun": monthly_counts[6],
+    }

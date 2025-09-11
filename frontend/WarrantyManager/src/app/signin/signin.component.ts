@@ -32,7 +32,7 @@ export class SigninComponent {
 
         console.log('Login success:', response.data);
         localStorage.setItem('token', response.data.access_token);
-
+        localStorage.setItem('username', this.HelpForm.value.username);
         this.router.navigate(['/dashboard']);
       } catch (error: any) {
         console.error('Login failed:', error);
