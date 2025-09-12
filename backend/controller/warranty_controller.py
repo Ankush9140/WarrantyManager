@@ -4,7 +4,7 @@ from models.warranty_model import Warranty
 from service.warranty_service import WarrantyService
 from typing import Optional
 import io
-from datetime import datetime
+from datetime import date, datetime
 from controller.auth_controller import get_current_user
 from fastapi import Depends
 from repository.warranty_repo import WarrantyRepo
@@ -69,9 +69,12 @@ async def update_warranty(
         updates_dict["govt_id"] = govt_id
     if purchase_date:
         try:
-            updates_dict["purchase_date"] = datetime.fromisoformat(purchase_date).date()
+            dt = datetime.fromisoformat(purchase_date)
+            if isinstance(dt, date) and not isinstance(dt, datetime):
+                dt = datetime.combine(dt, datetime.min.time())
+            updates_dict["purchase_date"] = dt
         except ValueError:
-            raise HTTPException(status_code=400, detail="Invalid date format, expected YYYY-MM-DD")
+            raise HTTPException(status_code=304, detail="Invalid date format, expected YYYY-MM-DD")
     if warranty_period:
         try:
             updates_dict["warranty_period"] = int(warranty_period)

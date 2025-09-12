@@ -1,0 +1,83 @@
+<div class="table-container">
+  <table>
+    <thead class="headers">
+      <tr class="head1">
+        <th *ngFor="let item of heading">
+          {{ item }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bodies" *ngFor="let item of data">
+        <ng-container *ngFor="let key of keys">
+
+          <!-- ✅ Download Icon -->
+          <td *ngIf="key === 'document'; else notDoc">
+            <ng-container *ngIf="item.document_id; else noDoc">
+              <img src="/download.svg" alt="Download" width="20" (click)="onDownload(item)" class="icon-download" />
+            </ng-container>
+            <ng-template #noDoc>
+              <img src="/downloadN.svg" alt="No Download" width="20" class="icon-download-disabled" />
+            </ng-template>
+          </td>
+
+          <!-- ✅ Edit Icon -->
+          <ng-template #notDoc>
+            <td *ngIf="key === 'edit'; else Del">
+              <img src="/edit.svg" alt="Edit" width="20" (click)="openModal(item)" class="icon-edit-2" />
+            </td>
+          </ng-template>
+
+          <!-- ✅ Delete Icon -->
+          <ng-template #Del>
+            <td *ngIf="key === 'delete'; else normal">
+              <img src="/delete.svg" alt="Edit" width="20" (click)="delete(item)" class="icon-edit-3" />
+            </td>
+          </ng-template>
+
+          <!-- ✅ Status Handling -->
+          <ng-template #normal>
+            <td *ngIf="key === 'status'; else default" [ngClass]="getStatusClass(item[key])">
+              {{ item[key] }}
+            </td>
+            <ng-template #default>
+              <td style="overflow: hidden">
+                {{ item[key] }}
+              </td>
+            </ng-template>
+          </ng-template>
+
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+  <div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Edit Warranty</h2>
+        <span class="close" (click)="closeModal()">&times;</span>
+      </div>
+
+      <form class="former">
+        <input type="text" placeholder="Product Name" [(ngModel)]="formData.product_name" name="product_name" />
+        <input type="text" placeholder="Customer Name" [(ngModel)]="formData.customer_name" name="customer_name" />
+        <input type="text" placeholder="Govt ID" [(ngModel)]="formData.govt_id" name="govt_id" />
+        <input type="date" [(ngModel)]="formData.purchase_date" name="purchase_date" />
+        <input type="number" placeholder="Warranty Period (Years)" [(ngModel)]="formData.warranty_period"
+          name="warranty_period" />
+
+        <select [(ngModel)]="formData.status" name="status">
+          <option value="Active">Active</option>
+          <option value="Expired">Expired</option>
+          <option value="Claimed">Claimed</option>
+        </select>
+
+        <input type="text" placeholder="Contact Info" [(ngModel)]="formData.contact_info" name="contact_info" />
+
+        <label>Upload Document:</label>
+        <input type="file" (change)="onFileChange($event)" />
+        <button type="button" (click)="saveWarranty()">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

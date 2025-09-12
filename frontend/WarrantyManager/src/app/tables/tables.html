@@ -1,1 +1,52 @@
-<p>tables works!</p>
+<div class="mainContainer">
+  <app-topbar></app-topbar>
+  <div class="top">
+    <div style="margin-left: 30px; font-size: 20px; font-weight: 500; cursor: pointer; color: #4050B5; text-decoration: underline" routerLink="/dashboard">Back To Dashboard</div>
+    <div style="margin-right: 30px; display: flex; gap: 20px;">
+      <button (click)="openModal()">
+        <p style="font-size: 20px;">+</p>
+        <p>Create New Warranty</p>
+      </button>
+      <button (click)="uploadDocs()">
+        <p style="font-size: 20px;">+</p>
+        <p>Bulk Warranties</p>
+      </button>
+    </div>
+    <div class="modal" *ngIf="showModal">
+      <div class="modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h2>Create New Warranty</h2>
+          <span class="close" (click)="closeModal()">&times;</span>
+        </div>
+
+        <form class="former">
+          <input type="text" placeholder="Product Name" [(ngModel)]="formData.product_name" name="product_name" />
+          <input type="text" placeholder="Customer Name" [(ngModel)]="formData.customer_name" name="customer_name" />
+          <input type="text" placeholder="Govt ID" [(ngModel)]="formData.govt_id" name="govt_id" />
+          <input type="date" [(ngModel)]="formData.purchase_date" name="purchase_date" />
+          <input type="number" placeholder="Warranty Period (Years)" [(ngModel)]="formData.warranty_period" name="warranty_period" />
+
+          <select [(ngModel)]="formData.status" name="status">
+            <option value="Active">Active</option>
+            <option value="Expired">Expired</option>
+            <option value="Claimed">Claimed</option>
+          </select>
+
+          <input type="text" placeholder="Contact Info" [(ngModel)]="formData.contact_info" name="contact_info" />
+
+          <label>Upload Document:</label>
+          <input type="file" (change)="onFileChange($event)" />
+
+          <button type="button" (click)="saveWarranty()">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <p style="margin-left: 4vw;" routerLink="/tables/all" [style]="val===1?{'text-decoration':'underline','color':'#4050B5'}:{}" (click)="setval(1)">All</p>
+    <p routerLink="/tables/Active" [style]="val===2?{'text-decoration':'underline','color':'#4050B5',}:{}" (click)="setval(2)">Active</p>
+    <p routerLink="/tables/Expired" [style]="val===3?{'text-decoration':'underline','color':'#4050B5'}:{}" (click)="setval(3)">Expired</p>
+    <p routerLink="/tables/Claimed" [style]="val===4?{'text-decoration':'underline','color':'#4050B5'}:{}" (click)="setval(4)">Claimed</p>
+  </div>
+  <router-outlet></router-outlet>
+</div>

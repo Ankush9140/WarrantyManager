@@ -43,7 +43,11 @@ class WarrantyRepo:
 
     def delete_warranty(self, product_id: str):
         product_id = product_id.strip('"')
-        return self.collection.delete_one({"product_id": product_id})
+        result = self.collection.delete_one({"product_id": product_id})
+        return {
+            "deleted_count": result.deleted_count,
+            "acknowledged": result.acknowledged
+        }
 
     def save_document(self, file, filename: str):
         file_id = self.fs.put(file, filename=filename)

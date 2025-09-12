@@ -19,7 +19,7 @@ export class Dashboard implements OnInit {
   private datePipe = inject(DatePipe);
   constructor(private router: Router) { }
   goToTables() {
-    this.router.navigate(['/tables']);
+    this.router.navigate(['/tables/all']);
   }
   chartOptions: any = {
     animationEnabled: true,
@@ -146,7 +146,6 @@ export class Dashboard implements OnInit {
     //table data
     this.service.getAllWarranties().subscribe(warranties => {
       this.data = warranties;
-      console.log(this.data)
       this.data.forEach(item => {
         if (item.purchase_date) {
           item.purchase_date = this.datePipe.transform(item.purchase_date, 'dd-MM-yyyy');
